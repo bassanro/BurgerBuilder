@@ -5,11 +5,14 @@ import Aux from "../../../hoc/Auxilary/Auxilary";
 
 class Modal extends Component {
   shouldComponentUpdate(nextProps, nextState) {
-    return nextProps.show !== this.props.show;
+    return (
+      nextProps.show !== this.props.show ||
+      nextProps.children !== this.props.children
+    );
   }
 
   componentDidUpdate() {
-    console.log("[Modal] Component will uddate");
+    console.log("[Modal] Component will update");
   }
 
   render() {
