@@ -16,7 +16,6 @@ class Modal extends Component {
   }
 
   render() {
-    console.trace("Backdrop invoked");
     return (
       <Aux>
         <Backdrop show={this.props.show} clicked={this.props.modalClosed} />

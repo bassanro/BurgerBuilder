@@ -90,7 +90,7 @@ class BurgerBuilder extends Component {
   };
 
   purchaseContinuedHandler = () => {
-    console.log(this.props);
+    //console.log(this.props);
 
     //alert("You continue");
 
@@ -102,7 +102,7 @@ class BurgerBuilder extends Component {
           encodeURIComponent(this.state.ingredients[i])
       );
     }
-    queryparams.push("price" + this.state.totalPrice);
+    queryparams.push("price=" + this.state.totalPrice);
     const queryString = queryparams.join("&");
 
     this.props.history.push({

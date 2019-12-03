@@ -8,7 +8,7 @@ import { Route } from "react-router-dom";
 class Checkout extends Component {
   state = {
     ingredients: null,
-    totalPrice: 0
+    price: 0
   };
 
   componentWillMount() {
