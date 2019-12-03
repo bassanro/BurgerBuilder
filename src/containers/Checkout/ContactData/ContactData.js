@@ -14,7 +14,13 @@ class ContactData extends Component {
         type: "text",
         placeholder: placeholder
       },
-      value: ""
+      value: "",
+      validation: { 
+        required: true,
+        minLength: 5,
+        maxLength: 20
+      },
+      valid: false
     };
     // Return it
     return obj;
@@ -72,6 +78,25 @@ class ContactData extends Component {
       });
   };
 
+  checkValidity(value,rules) {
+    // Return true for valid. 
+    let isValid = true;
+    if (rules.required) { 
+      isValid &= value.trim() !== "";
+    }
+
+    if (rules.minLength) { 
+      isValid &= value.length  >= rules.minLength
+    }
+
+    if (rules.maxLength) { 
+      isValid &= value.length  <= rules.maxLength
+    }
+
+    return isValid;
+  }
+
+
   inputChangedHandler = (event, inputIdentifier) => {
     // this does not create a new clone since there are nested objects.
     // Only pointers will be copied. Hence we copy selected
@@ -80,11 +105,14 @@ class ContactData extends Component {
     };
 
     // this is why we require multiple clones.
-    const udpatedFormElement = {
+    const updatedFormElement = {
       ...updatedOrderForm[inputIdentifier]
     };
-    udpatedFormElement.value = event.target.value;
-    updatedOrderForm[inputIdentifier] = udpatedFormElement;
+    updatedFormElement.value = event.target.value;
+    updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
+    // To check the validity.
+    //console.log(updatedFormElement);
+    updatedOrderForm[inputIdentifier] = updatedFormElement;
     this.setState({ orderForm: updatedOrderForm });
   };
 
@@ -107,6 +135,8 @@ class ContactData extends Component {
             elementType={formElement.config.elementType}
             elementConfig={formElement.config.elementConfig}
             value={formElement.config.value}
+            inValid={!formElement.config.valid}
+            shouldValidate={formElement.config.validation}
             changed={(event) => this.inputChangedHandler(event, formElement.id)}
           />
         ))}
