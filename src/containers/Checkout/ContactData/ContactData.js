@@ -144,6 +144,7 @@ class ContactData extends Component {
             inValid={!formElement.config.valid}
             shouldValidate={formElement.config.validation}
             touched={formElement.config.touched}
+            valueType={formElement.id}
             changed={(event) => this.inputChangedHandler(event, formElement.id)}
           />
         ))}

@@ -30,3 +30,8 @@
   border: 1px solid red;
   background-color: salmon;
 }
+
+.ValidatonError {
+  color: red;
+  margin: 2px 0;
+}
