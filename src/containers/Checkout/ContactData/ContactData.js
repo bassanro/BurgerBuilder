@@ -20,7 +20,8 @@ class ContactData extends Component {
         minLength: 5,
         maxLength: 20
       },
-      valid: false
+      valid: false,
+      touched: false
     };
     // Return it
     return obj;
@@ -81,6 +82,9 @@ class ContactData extends Component {
   checkValidity(value,rules) {
     // Return true for valid. 
     let isValid = true;
+
+
+
     if (rules.required) { 
       isValid &= value.trim() !== "";
     }
@@ -109,7 +113,9 @@ class ContactData extends Component {
       ...updatedOrderForm[inputIdentifier]
     };
     updatedFormElement.value = event.target.value;
+
     updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
+    updatedFormElement.touched = true;
     // To check the validity.
     //console.log(updatedFormElement);
     updatedOrderForm[inputIdentifier] = updatedFormElement;
@@ -137,6 +143,7 @@ class ContactData extends Component {
             value={formElement.config.value}
             inValid={!formElement.config.valid}
             shouldValidate={formElement.config.validation}
+            touched={formElement.config.touched}
             changed={(event) => this.inputChangedHandler(event, formElement.id)}
           />
         ))}
