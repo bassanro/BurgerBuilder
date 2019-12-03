@@ -31,12 +31,13 @@ class ContactData extends Component {
         elementType: "select",
         elementConfig: {
           options: [
-            { value: "fastest", displayValue: "Fasteset" },
-            { value: "cheapest", displayValue: "cheapest" }
+            { value: "fastest", displayValue: "Fastest" },
+            { value: "cheapest", displayValue: "Cheapest" }
           ],
           value: ""
         }
-      }
+      },
+      loading: false
     }
   };
 
@@ -53,7 +54,7 @@ class ContactData extends Component {
 
     const order = {
       ingredients: this.props.ingredients,
-      price: this.props.totalPrice,
+      price: this.props.price,
       orderData: formData
     };
 
