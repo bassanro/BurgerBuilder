@@ -3,16 +3,40 @@ import Button from "../../../components/UI/Button/Button";
 import classes from "./ContactData.css";
 import axiosInstance from "../../../axis-orders";
 import Spinner from "../../../components/UI/Spinner/Spinner";
+import Input from "../../../components/UI/Input/Input";
 
 class ContactData extends Component {
+  makeInputSchema = (placeholder) => {
+    // Define desired object
+    var obj = {
+      elementType: "input",
+      elementConfig: {
+        type: "text",
+        placeholder: placeholder
+      },
+      value: ""
+    };
+    // Return it
+    return obj;
+  };
+
   state = {
-    name: "Roshan Bassan",
-    address: {
-      street: "test street",
-      zipCode: "2000",
-      country: "Germany"
-    },
-    email: "test@test.com"
+    orderForm: {
+      name: this.makeInputSchema("Your Name"),
+      street: this.makeInputSchema("Street"),
+      zipCode: this.makeInputSchema("ZipCode"),
+      country: this.makeInputSchema("Country"),
+      email: this.makeInputSchema("eMail"),
+      deliveryMethod: {
+        elementType: "select",
+        elementConfig: {
+          options: [
+            { value: "fastest", displayValue: "Fasteset" },
+            { value: "cheapest", displayValue: "cheapest" }
+          ]
+        }
+      }
+    }
   };
 
   orderHandler = (event) => {
@@ -46,33 +70,44 @@ class ContactData extends Component {
       });
   };
 
+  inputChangedHandler = (event, inputIdentifier) => {
+    // this does not create a new clone since there are nested objects.
+    // Only pointers will be copied. Hence we copy selected
+    const updatedOrderForm = {
+      ...this.state.orderForm
+    };
+
+    // this is why we require multiple clones.
+    const udpatedFormElement = {
+      ...updatedOrderForm[inputIdentifier]
+    };
+    udpatedFormElement.value = event.target.value;
+    updatedOrderForm[inputIdentifier] = udpatedFormElement;
+    this.setState({ orderForm: updatedOrderForm });
+  };
+
   render() {
+    const formElementsArray = [];
+    // key are properties of object
+    for (let key in this.state.orderForm) {
+      formElementsArray.push({
+        id: key,
+        config: this.state.orderForm[key]
+      });
+    }
+
     let form = (
       <form>
-        <input
-          className={classes.Input}
-          type="text"
-          name="name"
-          placeholder="Your name"
-        />
-        <input
-          className={classes.Input}
-          type="email"
-          name="email"
-          placeholder="Your Mail"
-        />
-        <input
-          className={classes.Input}
-          type="text"
-          name="street"
-          placeholder="Street"
-        />
-        <input
-          className={classes.Input}
-          type="text"
-          name="postal"
-          placeholder="Postal Code"
-        />
+        {/* returns jsx */}
+        {formElementsArray.map((formElement) => (
+          <Input
+            key={formElement.id}
+            elementType={formElement.config.elementType}
+            elementConfig={formElement.config.elementConfig}
+            value={formElement.config.value}
+            changed={(event) => this.inputChangedHandler(event, formElement.id)}
+          />
+        ))}
         <Button btnType="Success" clicked={this.orderHandler}>
           ORDER
         </Button>

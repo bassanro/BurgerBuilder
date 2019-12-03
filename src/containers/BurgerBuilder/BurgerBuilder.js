@@ -134,8 +134,8 @@ class BurgerBuilder extends Component {
             ingredientAdded={this.addIngredientsHandler}
             ingredientsRemoved={this.removeIngredientHandler}
             disabled={disabledInfo}
-            price={this.state.totalPrice}
             purchaseable={this.state.purchaseable}
+            price={this.state.totalPrice}
             ordered={this.purchaseHandler}
           />
         </Aux>
@@ -143,10 +143,10 @@ class BurgerBuilder extends Component {
 
       orderSummary = (
         <OrderSummary
-          purchaseCancelled={this.purchaseCancelHandler}
-          purchaseContinued={this.purchaseContinuedHandler}
           ingredients={this.state.ingredients}
           price={this.state.totalPrice}
+          purchaseCancelled={this.purchaseCancelHandler}
+          purchaseContinued={this.purchaseContinuedHandler}
         />
       );
     }
