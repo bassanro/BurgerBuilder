@@ -41,10 +41,11 @@ class ContactData extends Component {
             { value: "fastest", displayValue: "Fastest" },
             { value: "cheapest", displayValue: "Cheapest" }
           ],
+        },
           value: "",
-          valid: true
-        }
-      },
+          valid: true,
+          validation: { }
+      }
     },
     loading: false,
     formIsValid: false
@@ -85,6 +86,10 @@ class ContactData extends Component {
     // Return true for valid. 
     let isValid = true;
 
+    if (!rules) { 
+      return true;
+    }
+
     if (rules.required) { 
       isValid &= value.trim() !== "";
     }
@@ -122,6 +127,7 @@ class ContactData extends Component {
 
     let formIsValid = true;
     for (let inputIdentifier in updatedOrderForm) { 
+      //console.log("Is valid =" + updatedOrderForm[inputIdentifier].valid + "key=" + inputIdentifier);
       formIsValid &= updatedOrderForm[inputIdentifier].valid
     }
 
