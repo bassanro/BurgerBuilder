@@ -1,5 +1,12 @@
 import * as actionTpes from './actions';
 
+const INGREDIENTS_PRICES = {
+  salad: 0.5,
+  bacon: 0.4,
+  cheese: 0,
+  meat: 1.7
+};
+
 const initalState = {
   ingredients: {
     salad: 0,
@@ -18,7 +25,8 @@ const reducer = (state = initalState, action) => {
         ingredients: {
           ...state.ingredients,
           [action.ingredientName]: state.ingredients[action.ingredientName] + 1
-        }
+        },
+        totalPrice: state.totalPrice + INGREDIENTS_PRICES[action.ingredientName]
       };
     case actionTpes.REMOVE_INGREDIENT:
       return {
@@ -26,7 +34,8 @@ const reducer = (state = initalState, action) => {
         ingredients: {
           ...state.ingredients,
           [action.ingredientName]: state.ingredients[action.ingredientName] - 1
-        }
+        },
+        totalPrice: state.totalPrice - INGREDIENTS_PRICES[action.ingredientName]
       };
     default:
       return state;
