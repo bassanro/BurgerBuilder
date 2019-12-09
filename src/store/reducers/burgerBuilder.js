@@ -8,13 +8,9 @@ const INGREDIENTS_PRICES = {
 };
 
 const initalState = {
-  ingredients: {
-    salad: 0,
-    bacon: 0,
-    cheese: 0,
-    meat: 0
-  },
-  totalPrice: 4
+  ingredients: null,
+  totalPrice: 4,
+  error: false
 };
 
 const reducer = (state = initalState, action) => {
@@ -36,6 +32,22 @@ const reducer = (state = initalState, action) => {
           [action.ingredientName]: state.ingredients[action.ingredientName] - 1
         },
         totalPrice: state.totalPrice - INGREDIENTS_PRICES[action.ingredientName]
+      };
+    case actionTpes.SET_INGREDIENTS:
+      return {
+        ...state,
+        ingredients: {
+          cheese: action.ingredients.cheese,
+          salad: action.ingredients.salad,
+          bacon: action.ingredients.bacon,
+          meat: action.ingredients.meat
+        },
+        error: false
+      };
+    case actionTpes.FECTH_INGREDIENTS_FAILED:
+      return {
+        ...state,
+        error: true
       };
     default:
       return state;
