@@ -1,4 +1,4 @@
-import * as actionTpes from './actions';
+import * as actionTpes from '../actions/actionTypes';
 
 const INGREDIENTS_PRICES = {
   salad: 0.5,
