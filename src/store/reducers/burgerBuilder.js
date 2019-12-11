@@ -42,6 +42,7 @@ const reducer = (state = initalState, action) => {
           bacon: action.ingredients.bacon,
           meat: action.ingredients.meat
         },
+        totalPrice: 4,
         error: false
       };
     case actionTpes.FECTH_INGREDIENTS_FAILED:
